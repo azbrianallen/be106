@@ -4,6 +4,7 @@ import os
 from flask import Flask
 from training_progress_p.config import config_by_name
 from training_progress_p.extensions import db, migrate
+from training_progress_p.health import health_bp
 
 def create_app(config_name="default"):
     """Application factory using dynamic configuration loading."""
@@ -25,6 +26,7 @@ def create_app(config_name="default"):
     from training_progress_p.routes import lessons_bp
 
     app.register_blueprint(lessons_bp)
+    app.register_blueprint(health_bp)
 
     return app
  
