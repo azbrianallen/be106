@@ -1,0 +1,30 @@
+# training_progress/.gitignore 
+
+# Logs
+*.log
+npm-debug.log*
+
+# Packages / Dependencies (Languages like Node, Python, etc.)
+node_modules/
+/venv/
+.venv/
+
+# Environment variables / Secrets / API keys
+.env
+.env.local
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Build outputs and temporary IDE folders
+dist/
+build/
+.idea/
+.vscode/
+
+# Local files
+instance/ 
+
+__pycache__/ 
+
