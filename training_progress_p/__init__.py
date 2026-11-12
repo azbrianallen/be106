@@ -1,10 +1,12 @@
 # training_progress\training_progress\__init__.py
 
-import os 
+import click
 from flask import Flask
-from training_progress_p.config import config_by_name
-from training_progress_p.extensions import db, migrate
-from training_progress_p.health import health_bp
+from .config import config_by_name
+from .extensions import db, migrate
+from .health import health_bp
+from .routes import lessons_bp
+
 
 def create_app(config_name="default"):
     """Application factory using dynamic configuration loading."""
@@ -23,10 +25,15 @@ def create_app(config_name="default"):
     migrate.init_app(app, db)
 
     # Register blueprints
-    from training_progress_p.routes import lessons_bp
-
     app.register_blueprint(lessons_bp)
     app.register_blueprint(health_bp)
+
+    @app.cli.command("show-config")
+    def show_config():
+        """Print non-secret runtime configuration values."""
+        click.echo(f"DEBUG: {app.config.get('DEBUG')}")
+        click.echo(f"TESTING: {app.config.get('TESTING')}")
+        click.echo(f"DB_URI: {app.config.get('SQLALCHEMY_DATABASE_URI')}")
 
     return app
  
