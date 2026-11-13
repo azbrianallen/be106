@@ -24,6 +24,8 @@ def create_app(config_name="default"):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from . import models
+
     # Register blueprints
     app.register_blueprint(lessons_bp)
     app.register_blueprint(health_bp)
