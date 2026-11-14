@@ -7,6 +7,7 @@ from .extensions import db, migrate
 from .auth import auth_bp
 from .health import health_bp
 from .routes import lessons_bp
+from .user_bp import user_bp
 
 def create_app(config_name="default"):
     """Application factory using dynamic configuration loading."""
@@ -30,7 +31,8 @@ def create_app(config_name="default"):
     app.register_blueprint(auth_bp)
     app.register_blueprint(lessons_bp)
     app.register_blueprint(health_bp)
-
+    app.register_blueprint(user_bp)
+    
     @app.cli.command("show-config")
     def show_config():
         """Print non-secret runtime configuration values."""

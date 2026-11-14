@@ -1,4 +1,4 @@
-# training_progress\training_progress\config.py
+# training_progress\training_progress_p\config.py
 
 import os
 from dotenv import load_dotenv
@@ -13,6 +13,10 @@ class Config:
 
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # JWT Authentication Settings
+    JWT_SECRET = os.environ.get("JWT_SECRET", SECRET_KEY)
+    JWT_LIFETIME_MINUTES = int(os.environ.get("JWT_LIFETIME_MINUTES", 15))
 
 class DevelopmentConfig(Config):
     """Development environment configuration."""
