@@ -21,6 +21,11 @@ class User(db.Model):
         nullable=False,
     )
 
+    lesson_progresses = db.relationship(
+        "LessonProgress",
+        back_populates="user",
+    )
+
 class LessonProgress(db.Model):
     __tablename__ = "lesson_progress"
 
@@ -49,3 +54,7 @@ class LessonProgress(db.Model):
         db.UniqueConstraint("user_id", "lesson_slug", name="uq_user_lesson_slug"),
     )
 
+    user = db.relationship(
+        "User",
+        back_populates="lesson_progresses",
+    ) 
