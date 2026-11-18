@@ -137,3 +137,6 @@ Connection: close
 
 {"code":"invalid_credentials","message":"Invalid email or password."} 
 
+# Update Nov 18, 2026 
+
+As of unit-3-read-by-id, /lessons/<id> returns 404 JSON for missing records. Existing records are returned to any authenticated user; ownership is not yet enforced, so a user can see another user’s lesson progress by ID. This is an authorization gap to be fixed in a later unit. 

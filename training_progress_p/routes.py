@@ -22,6 +22,10 @@ def _bad_request(message: str):
     """Return a consistent 400 JSON error response."""
     return jsonify({"code": "bad_request", "message": message}), 400
 
+def _not_found(message: str):
+    """Return a consistent 404 JSON error response."""
+    return jsonify({"code": "not_found", "message": message}), 404
+
 def _serialize_progress(progress: LessonProgress) -> dict:
     """Return a clean JSON-safe dictionary for a LessonProgress row."""
     return {
@@ -105,6 +109,15 @@ def create_lesson_progress():
     db.session.commit()
 
     return jsonify(_serialize_progress(progress)), 201
+
+@lessons_bp.route("/<int:lesson_progress_id>", methods=["GET"])
+def get_lesson_progress(lesson_progress_id: int):
+    """Return a single LessonProgress record by ID, or 404 if it does not exist."""
+    progress = db.session.get(LessonProgress, lesson_progress_id)
+    if not progress:
+        return _not_found("Lesson progress record not found.")
+
+    return jsonify(_serialize_progress(progress)), 200
 
 @lessons_bp.route("/admin-ping", methods=["GET"])
 def admin_ping():
