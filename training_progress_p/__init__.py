@@ -8,6 +8,7 @@ from .auth import auth_bp
 from .health import health_bp
 from .routes import lessons_bp
 from .user_bp import user_bp
+from .admin import admin_bp 
 
 def create_app(config_name="default"):
     """Application factory using dynamic configuration loading."""
@@ -28,6 +29,7 @@ def create_app(config_name="default"):
     from . import models # noqa: F401
 
     # Register blueprints
+    app.register_blueprint(admin_bp) 
     app.register_blueprint(auth_bp)
     app.register_blueprint(lessons_bp)
     app.register_blueprint(health_bp)
